@@ -168,6 +168,48 @@ public  class DepartmentDetailViewController : ObjectViewController<DetailView, 
 ```
 
 
-now i can add many records from action ... but when try to edit this record in local employees list i get error:  A newly created record cannot be shown until it is saved. (When trying do the same on Employees collection this error doesnt happens!). Ok i know this error - it is by design, i change my descendant collections to be aggregated.
+now i can add many records from action ... but when try to edit this record in local employees list i get error:  A newly created record cannot be shown until it is saved. (When trying do the same on Employees collection this error doesnt happens!). 
 
+
+![](error1.png)
+
+Ok! i know this error - it is by design, i change my descendant collections to be aggregated.
+
+
+```csharp
+private XPCollection<LocalEmployee> _LocalEmployees;
+// [ModelDefault("AllowEdit", "False")]
+[Aggregated]
+public XPCollection<LocalEmployee> LocalEmployees {
+    get {
+        if (_LocalEmployees == null)
+            _LocalEmployees = new XPCollection<LocalEmployee>(Session,
+                new GroupOperator(
+                new BinaryOperator(BaseObject.Fields.ObjectType.TypeName, new OperandValue(typeof(LocalEmployee).FullName), BinaryOperatorType.Equal),
+                new BinaryOperator("Department", this)));
+        return _LocalEmployees;
+    }
+}
+private XPCollection<ForeignEmployee> _ForeignEmployees;
+// [ModelDefault("AllowEdit", "False")]
+[Aggregated]
+public XPCollection<ForeignEmployee> ForeignEmployees {
+    get {
+        if (_ForeignEmployees == null)
+            _ForeignEmployees = new XPCollection<ForeignEmployee>(Session,
+                new GroupOperator(
+                new BinaryOperator(BaseObject.Fields.ObjectType.TypeName, new OperandValue(typeof(ForeignEmployee).FullName), BinaryOperatorType.Equal),
+                new BinaryOperator("Department", this)));
+        return _ForeignEmployees;
+    }
+}
+```
+
+It very close to success, but ... when i delete any record on child list, then local employees list is cleared
+like in this screencast:
+https://www.youtube.com/watch?v=m9GcF_8cqrM
+
+how to refresh local collection ?
+
+sample project is at github: https://github.com/kashiash/DescendantCollectionstest.git
 
