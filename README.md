@@ -206,7 +206,7 @@ public XPCollection<ForeignEmployee> ForeignEmployees {
 ```
 
 It very close to success, but ... when i delete any record on child list, then local employees list is cleared
-like in this screencast:
+like in this screen cast:
 https://www.youtube.com/watch?v=m9GcF_8cqrM
 
 how to refresh local collection ?
