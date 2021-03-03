@@ -31,7 +31,7 @@ namespace WinSolution.Module {
             get { return GetCollection<EmployeeBase>("Employees"); }
         }
         private XPCollection<LocalEmployee> _LocalEmployees;
-        [ModelDefault("AllowEdit", "False")]
+       // [ModelDefault("AllowEdit", "False")]
         public XPCollection<LocalEmployee> LocalEmployees {
             get {
                 if (_LocalEmployees == null)
@@ -43,7 +43,7 @@ namespace WinSolution.Module {
             }
         }
         private XPCollection<ForeignEmployee> _ForeignEmployees;
-        [ModelDefault("AllowEdit", "False")]
+       // [ModelDefault("AllowEdit", "False")]
         public XPCollection<ForeignEmployee> ForeignEmployees {
             get {
                 if (_ForeignEmployees == null)
