@@ -75,11 +75,13 @@ namespace WinSolution.Module {
 
             if (property.Name == "ForeignEmployees")
             {
+                //this never happens
                 collection.CollectionChanged += collectionForeignEmployees_CollectionChanged;
             }
 
             if (property.Name == "LocalEmployees")
             {
+                //this never happens
                 collection.CollectionChanged += collection_LocalEmployeesCollectionChanged;
             }
             return collection;
@@ -87,15 +89,20 @@ namespace WinSolution.Module {
 
         private void collection_LocalEmployeesCollectionChanged(object sender, XPCollectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            ProceessChange(e);
         }
 
         private void collectionForeignEmployees_CollectionChanged(object sender, XPCollectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            ProceessChange(e);
         }
 
         void collectionEmployees_CollectionChanged(object sender, XPCollectionChangedEventArgs e)
+        {
+            ProceessChange(e);
+        }
+
+        private void ProceessChange(XPCollectionChangedEventArgs e)
         {
             if (e.CollectionChangedType == XPCollectionChangedType.AfterAdd || e.CollectionChangedType == XPCollectionChangedType.AfterRemove)
             {
@@ -106,7 +113,6 @@ namespace WinSolution.Module {
                 }
             }
         }
-
     }
 
 
