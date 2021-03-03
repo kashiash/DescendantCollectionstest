@@ -6,6 +6,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Data.Filtering;
 using System.ComponentModel;
 using System.Collections;
+using DevExpress.Xpo.Metadata;
 
 namespace WinSolution.Module {
     [DefaultClassOptions]
@@ -62,7 +63,57 @@ namespace WinSolution.Module {
             LocalEmployees.Reload();
             ForeignEmployees.Reload();
         }
+
+
+        protected override XPCollection<T> CreateCollection<T>(XPMemberInfo property)
+        {
+            XPCollection<T> collection = base.CreateCollection<T>(property);
+            if (property.Name == "Employees")
+            {
+                collection.CollectionChanged += collectionEmployees_CollectionChanged;
+            }
+
+            if (property.Name == "ForeignEmployees")
+            {
+                collection.CollectionChanged += collectionForeignEmployees_CollectionChanged;
+            }
+
+            if (property.Name == "LocalEmployees")
+            {
+                collection.CollectionChanged += collection_LocalEmployeesCollectionChanged;
+            }
+            return collection;
+        }
+
+        private void collection_LocalEmployeesCollectionChanged(object sender, XPCollectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void collectionForeignEmployees_CollectionChanged(object sender, XPCollectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        void collectionEmployees_CollectionChanged(object sender, XPCollectionChangedEventArgs e)
+        {
+            if (e.CollectionChangedType == XPCollectionChangedType.AfterAdd || e.CollectionChangedType == XPCollectionChangedType.AfterRemove)
+            {
+                var employee = e.ChangedObject as EmployeeBase;
+                if (employee != null)
+                {
+                    employee.Department = this;
+                }
+            }
+        }
+
     }
+
+
+
+
+
+
     public abstract class EmployeeBase : BaseObject {
         public EmployeeBase(Session session) : base(session) { }
         private string name;
