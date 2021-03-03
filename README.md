@@ -122,3 +122,52 @@ Now I can Add records to descendant collections and parent is assigned!
 
 but ...
 
+I have in department simple action where i add few local (or foreign )employees:
+
+```csharp
+public  class DepartmentDetailViewController : ObjectViewController<DetailView, Department>
+  {
+
+      SimpleAction simpleAction;
+      public DepartmentDetailViewController()
+      {
+          simpleAction = new SimpleAction(this, $"{ GetType().FullName}{nameof(simpleAction) }", DevExpress.Persistent.Base.PredefinedCategory.Unspecified)
+          {
+
+              Caption = "Add local employees",
+              ImageName="BO_Skull",
+          };
+          simpleAction.Execute += SimpleAction_Execute;
+      }
+
+      private void SimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e)
+      {
+
+            var dept = View.CurrentObject as Department;
+            LocalEmployee le2 = ObjectSpace.CreateObject<LocalEmployee>();
+            le2.Department = dept;
+            le2.Name = "LocalEmployee 2";
+            LocalEmployee le3 = ObjectSpace.CreateObject<LocalEmployee>();
+            le3.Name = "LocalEmployee 3";
+            le3.Department = dept;
+            LocalEmployee le4 = ObjectSpace.CreateObject<LocalEmployee>();
+            le4.Name = "LocalEmployee 4";
+            le4.Department = dept;
+            LocalEmployee le5 = ObjectSpace.CreateObject<LocalEmployee>();
+            le5.Name = "LocalEmployee 5";
+            le5.Department = dept;
+
+
+            dept.LocalEmployees.AddRange(new LocalEmployee[] { le2, le3,le4,le5 });
+
+            View.FindItem("Employees").Refresh();
+            View.FindItem("LocalEmployees").Refresh();
+            ObjectSpace.SetModified(View.CurrentObject);
+      }
+  }
+```
+
+
+now i can add many records from action ... but when try to edit this record in local employees list i get error:  A newly created record cannot be shown until it is saved. (When trying do the same on Employees collection this error doesnt happens!). Ok i know this error - it is by design, i change my descendant collections to be aggregated.
+
+

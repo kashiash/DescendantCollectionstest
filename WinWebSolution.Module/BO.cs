@@ -32,7 +32,8 @@ namespace WinSolution.Module {
             get { return GetCollection<EmployeeBase>("Employees"); }
         }
         private XPCollection<LocalEmployee> _LocalEmployees;
-       // [ModelDefault("AllowEdit", "False")]
+        // [ModelDefault("AllowEdit", "False")]
+        [Aggregated]
         public XPCollection<LocalEmployee> LocalEmployees {
             get {
                 if (_LocalEmployees == null)
@@ -44,7 +45,8 @@ namespace WinSolution.Module {
             }
         }
         private XPCollection<ForeignEmployee> _ForeignEmployees;
-       // [ModelDefault("AllowEdit", "False")]
+        // [ModelDefault("AllowEdit", "False")]
+        [Aggregated]
         public XPCollection<ForeignEmployee> ForeignEmployees {
             get {
                 if (_ForeignEmployees == null)
@@ -119,7 +121,7 @@ namespace WinSolution.Module {
 
 
 
-
+    [DefaultClassOptions]
     public abstract class EmployeeBase : BaseObject {
         public EmployeeBase(Session session) : base(session) { }
         private string name;

@@ -116,6 +116,7 @@
   <ItemGroup>
     <Compile Include="BO.cs" />
     <Compile Include="CodeCentralExampleInMemoryDataStoreProvider.cs" />
+    <Compile Include="DepartmentDetailViewController.cs" />
     <Compile Include="EmployeeBaseViewController.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
