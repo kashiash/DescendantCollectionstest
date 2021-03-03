@@ -213,3 +213,41 @@ how to refresh local collection ?
 
 sample project is at github: https://github.com/kashiash/DescendantCollectionstest.git
 
+Continuing:
+
+I guess this can be exactly the same problem:
+
+I add Organization class which contains collection of Departments:
+
+```csharp
+[DefaultClassOptions]
+public class Organization : XPObject
+{
+    public Organization(Session session) : base(session)
+    { }
+
+
+    string organizationName;
+
+    [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+    public string OrganizationName
+    {
+        get => organizationName;
+        set => SetPropertyValue(nameof(OrganizationName), ref organizationName, value);
+    }
+
+
+    [Association("Organization-Departments"),Aggregated]
+    public XPCollection<Department> Departments
+    {
+        get
+        {
+            return GetCollection<Department>(nameof(Departments));
+        }
+    }
+```
+
+
+
+
+

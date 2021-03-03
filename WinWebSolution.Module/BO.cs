@@ -12,21 +12,36 @@ namespace WinSolution.Module {
     [DefaultClassOptions]
     [System.ComponentModel.DefaultProperty("Title")]
     public class Department : BaseObject {
+        WinWebSolution.Module.Organization organization;
         private string title;
         private string office;
         public Department(Session session) : base(session) { }
-        public string Title {
+        public string Title
+        {
             get { return title; }
-            set {
+            set
+            {
                 SetPropertyValue("Title", ref title, value);
             }
         }
-        public string Office {
+        public string Office
+        {
             get { return office; }
-            set {
+            set
+            {
                 SetPropertyValue("Office", ref office, value);
             }
         }
+
+               
+        [Association("Organization-Departments")]
+        public WinWebSolution.Module.Organization Organization
+        {
+            get => organization;
+            set => SetPropertyValue(nameof(Organization), ref organization, value);
+        }
+
+
         [Association("Department-Employees"), Aggregated]
         public XPCollection<EmployeeBase> Employees {
             get { return GetCollection<EmployeeBase>("Employees"); }
