@@ -248,6 +248,22 @@ public class Organization : XPObject
 ```
 
 
+Now i'm adding:
+
+1. New organization
+2. new department
+3. add local employees by action or by insert by detail view, and save and close on department DV
+4. reenter into department DV. Employees collection has records, but LocalEmployees is empty - How to refresh it ?
+
+5. Save departemt, save organization
+6 reenter organization and reenter department - Local Employees are visible
+
+See the screen cast:
+https://www.youtube.com/watch?v=UucblyT2GCk
+
+
+The main goal is to allow user to add/modify records on descendant collections, and refresh these collection event this is not persistent in database ?
+
 
 
 
