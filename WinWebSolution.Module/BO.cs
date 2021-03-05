@@ -52,7 +52,7 @@ namespace WinSolution.Module {
         public XPCollection<LocalEmployee> LocalEmployees {
             get {
                 if (_LocalEmployees == null)
-                    _LocalEmployees = new XPCollection<LocalEmployee>(Session,
+                    _LocalEmployees = new XPCollection<LocalEmployee>(PersistentCriteriaEvaluationBehavior.InTransaction, Session,
                         new GroupOperator(
                         new BinaryOperator(BaseObject.Fields.ObjectType.TypeName, new OperandValue(typeof(LocalEmployee).FullName), BinaryOperatorType.Equal),
                         new BinaryOperator("Department", this)));
@@ -65,7 +65,7 @@ namespace WinSolution.Module {
         public XPCollection<ForeignEmployee> ForeignEmployees {
             get {
                 if (_ForeignEmployees == null)
-                    _ForeignEmployees = new XPCollection<ForeignEmployee>(Session,
+                    _ForeignEmployees = new XPCollection<ForeignEmployee>(PersistentCriteriaEvaluationBehavior.InTransaction, Session,
                         new GroupOperator(
                         new BinaryOperator(BaseObject.Fields.ObjectType.TypeName, new OperandValue(typeof(ForeignEmployee).FullName), BinaryOperatorType.Equal),
                         new BinaryOperator("Department", this)));
