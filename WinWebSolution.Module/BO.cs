@@ -69,6 +69,7 @@ namespace WinSolution.Module {
                         new GroupOperator(
                         new BinaryOperator(BaseObject.Fields.ObjectType.TypeName, new OperandValue(typeof(ForeignEmployee).FullName), BinaryOperatorType.Equal),
                         new BinaryOperator("Department", this)));
+
                 return _ForeignEmployees;
             }
         }
@@ -93,7 +94,7 @@ namespace WinSolution.Module {
             if (property.Name == "ForeignEmployees")
             {
                 //this never happens
-                collection.CollectionChanged += collectionForeignEmployees_CollectionChanged;
+              
             }
 
             if (property.Name == "LocalEmployees")
